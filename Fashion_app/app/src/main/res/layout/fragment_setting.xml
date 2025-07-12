@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_gravity="center|top"
     tools:context=".fagment.SettingFragment">
     <ScrollView
         android:layout_width="match_parent"
@@ -12,47 +11,38 @@
         android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center|top"
-            android:background="#00F44336"
+            android:layout_height="wrap_content"
+            android:background="#FFF6F6"
             android:orientation="vertical"
-            android:layout_margin="20dp">
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="15dp"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_margin="20dp">
-
+                android:paddingBottom="12dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="110dp"
-                    android:src="@drawable/vecter" />
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/icon" />
                 <TextView
-                    android:layout_marginLeft="230dp"
-                    android:textSize="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
-                    android:text="Checkout"
-                    android:layout_width="200dp"
+                    android:text="Cài đặt tài khoản"
+                    android:textColor="#222"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-            <ImageView
-                android:layout_gravity="center"
-                android:src="@drawable/userrr"
-                android:layout_width="100dp"
-                android:layout_height="100dp"/>
             <TextView
-                android:textSize="20dp"
-                android:layout_marginHorizontal="15dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#040404"
-                android:text="Personal Details"
+                android:textColor="#C53232"
+                android:text="Thông tin cá nhân"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"/>
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"/>
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -60,16 +50,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtEmail"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="Hilloemiu123@gmail.com"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Email Address"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -77,36 +67,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtPassword"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="*********"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Password"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp"
+                android:inputType="textPassword" />
 
 
             <TextView
-                android:layout_marginHorizontal="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:text="Change Password"
-                android:textSize="15dp"
-                android:textColor="#C53232"
-                android:gravity="right"
-                android:layout_marginTop="15dp"/>
-            <TextView
-                android:paddingTop="70dp"
-                android:textSize="20dp"
-                android:layout_marginHorizontal="15dp"
-                android:textStyle="bold"
-                android:textColor="#040404"
-                android:text="Business Address Details"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"/>
+                android:layout_height="wrap_content"
+                android:text="Đổi mật khẩu"
+                android:textSize="14sp"
+                android:textColor="#C53232"
+                android:gravity="end"
+                android:paddingTop="8dp"
+                android:layout_marginLeft="8dp"/>
+            <TextView
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#C53232"
+                android:text="Địa chỉ kinh doanh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,16 +105,16 @@
                 android:paddingTop="10dp"
                 android:text="Pincode" />
             <EditText
+                android:id="@+id/edtPincode"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="450116"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Pincode"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -132,16 +122,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtAddress"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="216 St Paul's Rd, "
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Địa chỉ"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -149,16 +139,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtCity"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="London"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Thành phố"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -166,16 +156,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtState"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="N12 LL,"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Mã vùng/Bưu cục"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -183,25 +173,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtCountry"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="Unitel Kingdom"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Quốc gia"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
-                android:paddingTop="70dp"
-                android:textSize="20dp"
-                android:layout_marginHorizontal="15dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#040404"
-                android:text="Bank Account Details"
+                android:textColor="#C53232"
+                android:text="Thông tin ngân hàng"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp"/>
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"/>
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -209,16 +198,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtBankAccount"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="204356XXXXXXX"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="STK ngân hàng"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -226,16 +215,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtHolderName"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="Abhiraj Sisodiya"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
+                android:hint="Tên chủ tài khoản"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
             <TextView
                 android:paddingTop="10dp"
                 android:layout_marginHorizontal="15dp"
@@ -243,26 +232,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
+                android:id="@+id/edtIfsc"
                 android:textStyle="bold"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/khung"
-                android:drawablePadding="10dp"
-                android:hint="SBIN00428"
-                android:paddingHorizontal="20dp"
-                android:textColor="#0B0B0B" />
-            <EditText
-                android:layout_marginHorizontal="15dp"
-                android:gravity="center"
+                android:hint="Mã ngân hàng (IFSC)"
+                android:paddingHorizontal="12dp"
+                android:textColor="#0B0B0B"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/btnSave"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/background_button"
-                android:drawablePadding="10dp"
-                android:hint="Save"
-                android:textColor="#C82222" />
+                android:layout_height="48dp"
+                android:layout_marginTop="18dp"
+                android:backgroundTint="#C53232"
+                android:text="Lưu thông tin"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 

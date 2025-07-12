@@ -15,7 +15,7 @@ import com.huynhnha.fashionapp.R;
  * Use the {@link SearchFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements CartUpdateListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,10 +57,132 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    private android.widget.LinearLayout cartListLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        cartListLayout = view.findViewById(R.id.cartListLayout);
+        updateCartUI();
+        return view;
+    }
+
+    @Override
+    public void onCartUpdated() {
+        if (cartListLayout != null) {
+            updateCartUI();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateCartUI();
+    }
+
+    // Hàm cập nhật UI giỏ hàng, có thể gọi từ bên ngoài
+    public void updateCartUI() {
+        if (cartListLayout == null) return;
+        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("cart", android.content.Context.MODE_PRIVATE);
+        java.util.Set<String> cart = prefs.getStringSet("cart_items", new java.util.HashSet<>());
+        cartListLayout.removeAllViews();
+        if (cart.size() == 0) {
+            android.widget.TextView txtEmpty = new android.widget.TextView(getContext());
+            txtEmpty.setText("Chưa có sản phẩm nào trong giỏ hàng.");
+            txtEmpty.setTextColor(0xFF888888);
+            txtEmpty.setTextSize(16);
+            cartListLayout.addView(txtEmpty);
+        } else {
+            for (String item : cart) {
+                // Định dạng: tenSanPham|moTa|gia|hinh
+                String[] parts = item.split("\\|");
+                String tenSanPham = parts.length > 0 ? parts[0] : "";
+                String moTa = parts.length > 1 ? parts[1] : "";
+                String gia = parts.length > 2 ? parts[2] : "";
+                String hinh = parts.length > 3 ? parts[3] : "";
+
+                // Tạo CardView cho từng sản phẩm
+                androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(getContext());
+                card.setCardElevation(6);
+                card.setRadius(18);
+                android.widget.LinearLayout.LayoutParams cardParams = new android.widget.LinearLayout.LayoutParams(
+                        android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+                cardParams.setMargins(0, 0, 0, 20);
+                card.setLayoutParams(cardParams);
+                card.setUseCompatPadding(true);
+
+                android.widget.LinearLayout row = new android.widget.LinearLayout(getContext());
+                row.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+                row.setPadding(18, 18, 18, 18);
+                row.setBackgroundColor(0xFFFFFFFF);
+
+                int imgRes = getResources().getIdentifier(hinh, "drawable", requireContext().getPackageName());
+                android.widget.ImageView img = new android.widget.ImageView(getContext());
+                img.setImageResource(imgRes);
+                android.widget.LinearLayout.LayoutParams imgParams = new android.widget.LinearLayout.LayoutParams(120, 120);
+                imgParams.setMargins(0, 0, 18, 0);
+                img.setLayoutParams(imgParams);
+                img.setScaleType(android.widget.ImageView.ScaleType.CENTER_CROP);
+                row.addView(img);
+
+                android.widget.LinearLayout info = new android.widget.LinearLayout(getContext());
+                info.setOrientation(android.widget.LinearLayout.VERTICAL);
+                info.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+                        android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+
+                android.widget.TextView tvName = new android.widget.TextView(getContext());
+                tvName.setText(tenSanPham);
+                tvName.setTypeface(null, android.graphics.Typeface.BOLD);
+                tvName.setTextSize(15);
+                tvName.setTextColor(0xFF222222);
+                info.addView(tvName);
+
+                android.widget.TextView tvDesc = new android.widget.TextView(getContext());
+                tvDesc.setText(moTa);
+                tvDesc.setTextSize(13);
+                tvDesc.setTextColor(0xFF888888);
+                info.addView(tvDesc);
+
+                android.widget.TextView tvPrice = new android.widget.TextView(getContext());
+                tvPrice.setText(gia);
+                tvPrice.setTextColor(0xFFC53232);
+                tvPrice.setTextSize(15);
+                info.addView(tvPrice);
+
+                row.addView(info);
+
+                // Thêm nút XÓA
+                android.widget.Button btnRemove = new android.widget.Button(getContext());
+                btnRemove.setText("XÓA");
+                btnRemove.setBackgroundColor(0xFFFA1010);
+                btnRemove.setTextColor(0xFFFFFFFF);
+                android.widget.LinearLayout.LayoutParams btnParams = new android.widget.LinearLayout.LayoutParams(
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT);
+                btnParams.setMargins(18, 0, 0, 0);
+                btnRemove.setLayoutParams(btnParams);
+                row.addView(btnRemove);
+
+                // Xử lý sự kiện xóa sản phẩm
+                String itemKey = item;
+                btnRemove.setOnClickListener(new android.view.View.OnClickListener() {
+                    @Override
+                    public void onClick(android.view.View v) {
+                        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("cart", android.content.Context.MODE_PRIVATE);
+                        java.util.Set<String> cart = new java.util.HashSet<>(prefs.getStringSet("cart_items", new java.util.HashSet<String>()));
+                        cart.remove(itemKey);
+                        prefs.edit().putStringSet("cart_items", cart).apply();
+                        updateCartUI();
+                    }
+                });
+
+                card.addView(row);
+                cartListLayout.addView(card);
+            }
+        }
     }
 }

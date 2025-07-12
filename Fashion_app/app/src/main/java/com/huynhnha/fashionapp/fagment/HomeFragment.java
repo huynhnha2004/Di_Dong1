@@ -61,6 +61,11 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Tìm EditText và LinearLayout chứa danh sách sản phẩm
+        android.widget.LinearLayout productList = view.findViewById(R.id.productListHome);
+        // Nếu cần, thêm code hiển thị danh sách sản phẩm ở đây.
+        return view;
     }
 }

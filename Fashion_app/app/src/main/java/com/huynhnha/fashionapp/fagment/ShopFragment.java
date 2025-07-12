@@ -61,6 +61,84 @@ public class ShopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop, container, false);
+        View view = inflater.inflate(R.layout.fragment_shop, container, false);
+
+        // Bắt sự kiện click cho nút quay lại
+        View imgBack = view.findViewById(R.id.imgBack);
+        if (imgBack != null) {
+            imgBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                }
+            });
+        }
+
+        // Lưu lại view để sử dụng trong updateProductDetailUI
+        this.rootView = view;
+        updateProductDetailUI();
+
+        // Thêm chức năng thêm vào giỏ hàng
+        android.widget.Button btnAddToCart = view.findViewById(R.id.btnAddToCart);
+        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.content.SharedPreferences detailPrefs = requireContext().getSharedPreferences("shop_detail", android.content.Context.MODE_PRIVATE);
+                String tenSanPham = detailPrefs.getString("tenSanPham", "NIke Sneakers");
+                String moTa = detailPrefs.getString("moTa", "Vision Alta Men’s Shoes Size (All Colours)");
+                String gia = detailPrefs.getString("gia", "200.000 đ");
+                String hinh = detailPrefs.getString("hinh", "zntrt");
+                String item = tenSanPham + "|" + moTa + "|" + gia + "|" + hinh;
+
+                android.content.SharedPreferences prefs = requireContext().getSharedPreferences("cart", android.content.Context.MODE_PRIVATE);
+                java.util.Set<String> cart = new java.util.HashSet<>(prefs.getStringSet("cart_items", new java.util.HashSet<>()));
+                cart.add(item);
+                prefs.edit().putStringSet("cart_items", cart).apply();
+
+                android.widget.Toast.makeText(getContext(), "Đã thêm vào giỏ hàng!", android.widget.Toast.LENGTH_SHORT).show();
+
+                // Sau khi thêm, nếu SearchFragment đang hiển thị thì cập nhật UI ngay
+                androidx.fragment.app.FragmentManager fm = requireActivity().getSupportFragmentManager();
+                java.util.List<androidx.fragment.app.Fragment> fragments = fm.getFragments();
+                for (androidx.fragment.app.Fragment fragment : fragments) {
+                    if (fragment instanceof com.huynhnha.fashionapp.fagment.SearchFragment) {
+                        if (fragment.isVisible() && fragment instanceof CartUpdateListener) {
+                            ((CartUpdateListener) fragment).onCartUpdated();
+                        }
+                    }
+                }
+            }
+        });
+        return view;
     }
+
+    private View rootView;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateProductDetailUI();
+    }
+
+    private void updateProductDetailUI() {
+        if (rootView == null) return;
+        android.content.SharedPreferences detailPrefs = requireContext().getSharedPreferences("shop_detail", android.content.Context.MODE_PRIVATE);
+        String tenSanPham = detailPrefs.getString("tenSanPham", "NIke Sneakers");
+        String moTa = detailPrefs.getString("moTa", "Vision Alta Men’s Shoes Size (All Colours)");
+        String gia = detailPrefs.getString("gia", "200.000 đ");
+        String hinh = detailPrefs.getString("hinh", "zntrt");
+
+        android.widget.TextView tvTen = rootView.findViewById(R.id.tvTenSanPham);
+        android.widget.TextView tvMoTa = rootView.findViewById(R.id.tvMoTaSanPham);
+        android.widget.TextView tvGia = rootView.findViewById(R.id.tvGiaSanPham);
+        android.widget.ImageView imgSanPham = rootView.findViewById(R.id.imgSanPham);
+        if (tvTen != null) tvTen.setText(tenSanPham);
+        if (tvMoTa != null) tvMoTa.setText(moTa);
+        if (tvGia != null) tvGia.setText(gia);
+        if (imgSanPham != null) {
+            int imgRes = getResources().getIdentifier(hinh, "drawable", requireContext().getPackageName());
+            if (imgRes != 0) imgSanPham.setImageResource(imgRes);
+        }
+    }
+
 }

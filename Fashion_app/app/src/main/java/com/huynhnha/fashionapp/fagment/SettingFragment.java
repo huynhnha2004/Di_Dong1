@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.huynhnha.fashionapp.R;
 
@@ -61,6 +64,54 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        // Ánh xạ view
+        EditText edtEmail = view.findViewById(R.id.edtEmail);
+        EditText edtPassword = view.findViewById(R.id.edtPassword);
+        EditText edtPincode = view.findViewById(R.id.edtPincode);
+        EditText edtAddress = view.findViewById(R.id.edtAddress);
+        EditText edtCity = view.findViewById(R.id.edtCity);
+        EditText edtState = view.findViewById(R.id.edtState);
+        EditText edtCountry = view.findViewById(R.id.edtCountry);
+        EditText edtBankAccount = view.findViewById(R.id.edtBankAccount);
+        EditText edtHolderName = view.findViewById(R.id.edtHolderName);
+        EditText edtIfsc = view.findViewById(R.id.edtIfsc);
+        Button btnSave = view.findViewById(R.id.btnSave);
+
+        // Load dữ liệu đã lưu (nếu có)
+        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("user_info", android.content.Context.MODE_PRIVATE);
+        edtEmail.setText(prefs.getString("email", ""));
+        edtPassword.setText(prefs.getString("password", ""));
+        edtPincode.setText(prefs.getString("pincode", ""));
+        edtAddress.setText(prefs.getString("address", ""));
+        edtCity.setText(prefs.getString("city", ""));
+        edtState.setText(prefs.getString("state", ""));
+        edtCountry.setText(prefs.getString("country", ""));
+        edtBankAccount.setText(prefs.getString("bank_account", ""));
+        edtHolderName.setText(prefs.getString("holder_name", ""));
+        edtIfsc.setText(prefs.getString("ifsc", ""));
+
+        // Sự kiện lưu
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.content.SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("email", edtEmail.getText().toString());
+                editor.putString("password", edtPassword.getText().toString());
+                editor.putString("pincode", edtPincode.getText().toString());
+                editor.putString("address", edtAddress.getText().toString());
+                editor.putString("city", edtCity.getText().toString());
+                editor.putString("state", edtState.getText().toString());
+                editor.putString("country", edtCountry.getText().toString());
+                editor.putString("bank_account", edtBankAccount.getText().toString());
+                editor.putString("holder_name", edtHolderName.getText().toString());
+                editor.putString("ifsc", edtIfsc.getText().toString());
+                editor.apply();
+                android.widget.Toast.makeText(getContext(), "Lưu thông tin thành công!", android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
     }
 }
