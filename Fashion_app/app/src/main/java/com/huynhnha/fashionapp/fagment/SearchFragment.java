@@ -70,8 +70,16 @@ public class SearchFragment extends Fragment implements CartUpdateListener {
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.content.Intent intent = new android.content.Intent(getActivity(), com.huynhnha.fashionapp.OrderSuccessActivity.class);
-                startActivity(intent);
+                // Xoá sạch giỏ hàng
+                android.content.SharedPreferences prefs = requireContext().getSharedPreferences("cart", android.content.Context.MODE_PRIVATE);
+                prefs.edit().remove("cart_items").apply();
+                updateCartUI();
+                try {
+                    android.content.Intent intent = new android.content.Intent(getActivity(), com.huynhnha.fashionapp.OrderSuccessActivity.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    android.widget.Toast.makeText(getContext(), "Mua hàng thành công!", android.widget.Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -105,13 +113,18 @@ public class SearchFragment extends Fragment implements CartUpdateListener {
             txtEmpty.setTextSize(16);
             cartListLayout.addView(txtEmpty);
         } else {
+            double tongTienTatCa = 0;
             for (String item : cart) {
-                // Định dạng: tenSanPham|moTa|gia|hinh
+                // Định dạng: tenSanPham|moTa|gia|hinh|soLuong
                 String[] parts = item.split("\\|");
                 String tenSanPham = parts.length > 0 ? parts[0] : "";
                 String moTa = parts.length > 1 ? parts[1] : "";
                 String gia = parts.length > 2 ? parts[2] : "";
                 String hinh = parts.length > 3 ? parts[3] : "";
+                int soLuong = 1;
+                if (parts.length > 4) {
+                    try { soLuong = Integer.parseInt(parts[4]); } catch (Exception ignore) {}
+                }
 
                 // Tạo CardView cho từng sản phẩm
                 androidx.cardview.widget.CardView card = new androidx.cardview.widget.CardView(getContext());
@@ -158,10 +171,56 @@ public class SearchFragment extends Fragment implements CartUpdateListener {
                 info.addView(tvDesc);
 
                 android.widget.TextView tvPrice = new android.widget.TextView(getContext());
-                tvPrice.setText(gia);
+                // Giá gốc
+                double giaGoc = 0;
+                try {
+                    giaGoc = Double.parseDouble(gia.replaceAll("[^0-9.]", ""));
+                } catch (Exception ignore) {}
+                // Giá tổng
+                double tongGia = giaGoc * soLuong;
+                tvPrice.setText("Giá: " + gia + " x " + soLuong + " = " + String.format("%.0f đ", tongGia));
+                tongTienTatCa += tongGia;
                 tvPrice.setTextColor(0xFFC53232);
                 tvPrice.setTextSize(15);
                 info.addView(tvPrice);
+
+                // Tăng giảm số lượng
+                android.widget.LinearLayout qtyLayout = new android.widget.LinearLayout(getContext());
+                qtyLayout.setOrientation(android.widget.LinearLayout.HORIZONTAL);
+                qtyLayout.setPadding(0, 12, 0, 0);
+                android.widget.Button btnMinus = new android.widget.Button(getContext());
+                btnMinus.setText("-");
+                btnMinus.setLayoutParams(new android.widget.LinearLayout.LayoutParams(90, 90));
+                android.widget.TextView tvQty = new android.widget.TextView(getContext());
+                tvQty.setText(String.valueOf(soLuong));
+                tvQty.setTextSize(17);
+                tvQty.setTextColor(0xFF333333);
+                tvQty.setPadding(18,0,18,0);
+                android.widget.Button btnPlus = new android.widget.Button(getContext());
+                btnPlus.setText("+");
+                btnPlus.setLayoutParams(new android.widget.LinearLayout.LayoutParams(90, 90));
+                qtyLayout.addView(btnMinus);
+                qtyLayout.addView(tvQty);
+                qtyLayout.addView(btnPlus);
+                info.addView(qtyLayout);
+
+                // Sự kiện tăng giảm số lượng
+                final int soLuongCopy = soLuong;
+                btnMinus.setOnClickListener(new android.view.View.OnClickListener() {
+                    @Override
+                    public void onClick(android.view.View v) {
+                        if (soLuongCopy > 1) {
+                            capNhatSoLuongCart(item, soLuongCopy-1);
+                        }
+                    }
+                });
+                final int soLuongCopyPlus = soLuong;
+                btnPlus.setOnClickListener(new android.view.View.OnClickListener() {
+                    @Override
+                    public void onClick(android.view.View v) {
+                        capNhatSoLuongCart(item, soLuongCopyPlus+1);
+                    }
+                });
 
                 row.addView(info);
 
@@ -193,6 +252,27 @@ public class SearchFragment extends Fragment implements CartUpdateListener {
                 card.addView(row);
                 cartListLayout.addView(card);
             }
+            // Hiển thị tổng tiền dưới cùng
+            android.widget.TextView tvTongTien = new android.widget.TextView(getContext());
+            tvTongTien.setText("Tổng tiền: " + String.format("%.0f đ", tongTienTatCa));
+            tvTongTien.setTextColor(0xFF222222);
+            tvTongTien.setTextSize(18);
+            tvTongTien.setPadding(0, 32, 0, 24);
+            tvTongTien.setTypeface(null, android.graphics.Typeface.BOLD);
+            cartListLayout.addView(tvTongTien);
         }
+    }
+    // Hàm cập nhật số lượng sản phẩm trong cart
+    private void capNhatSoLuongCart(String item, int soLuongMoi) {
+        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("cart", android.content.Context.MODE_PRIVATE);
+        java.util.Set<String> cart = new java.util.HashSet<>(prefs.getStringSet("cart_items", new java.util.HashSet<String>()));
+        cart.remove(item);
+        String[] parts = item.split("\\|");
+        if (parts.length >= 4) {
+            String newItem = parts[0] + "|" + parts[1] + "|" + parts[2] + "|" + parts[3] + "|" + soLuongMoi;
+            cart.add(newItem);
+        }
+        prefs.edit().putStringSet("cart_items", cart).apply();
+        updateCartUI();
     }
 }

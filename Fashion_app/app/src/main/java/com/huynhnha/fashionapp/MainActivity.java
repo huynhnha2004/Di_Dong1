@@ -49,19 +49,19 @@ public class MainActivity extends AppCompatActivity {
                          tab.setIcon(R.drawable.home_1);
                          break;
                      case 1:
-                         tab.setText("Wishlist");
+                         tab.setText("Sản phẩm");
                          tab.setIcon(R.drawable.heart_1);
                          break;
                      case 2:
-                         tab.setText("Shop");
+                         tab.setText("Chi tiết");
                          tab.setIcon(R.drawable.shopping);
                          break;
                      case 3:
-                         tab.setText("Search");
+                         tab.setText("Giỏ hàng");
                          tab.setIcon(R.drawable.search_1);
                          break;
                      case 4:
-                         tab.setText("Setting");
+                         tab.setText("Cài đặt TK");
                          tab.setIcon(R.drawable.settings);
                          break;
 

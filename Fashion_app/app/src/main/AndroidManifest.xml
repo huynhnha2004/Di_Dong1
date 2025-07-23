@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -22,26 +21,15 @@
             android:name=".SignUpActivity2"
             android:exported="false" />
         <activity
+            android:name=".SignUpActivity"
+            android:exported="false" /> <!-- BỔ SUNG DÒNG NÀY -->
+        <activity
             android:name=".ActivityPage3"
             android:exported="false" />
         <activity
-            android:name=".ActivityPage2"
+            android:name=".MainActivity"
             android:exported="false" />
-        <activity
-            android:name=".PageActivity1"
-            android:exported="false" />
-        <activity
-            android:name=".BackgroundActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.huynhnha.fashionapp.MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".OrderSuccessActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.huynhnha.fashionapp.InfoActivity"
-            android:exported="false" />
+        <!-- ... các activity khác ... -->
         <activity
             android:name=".SignInActivity"
             android:exported="true">

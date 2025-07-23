@@ -1,5 +1,5 @@
 package com.huynhnha.fashionapp.fagment;
-
+import com.bumptech.glide.Glide;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -60,13 +60,13 @@ public class WishlistFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
+        android.widget.LinearLayout productList = view.findViewById(R.id.productListWishlist);
+        fetchWishlistProducts(productList);
 
         // Tìm EditText, nút tìm kiếm và danh sách sản phẩm
         android.widget.EditText edtSearch = view.findViewById(R.id.edtSearchWishlist);
         android.widget.ImageView btnSearch = view.findViewById(R.id.btnSearchWishlist);
-        android.widget.LinearLayout productList = view.findViewById(R.id.productListWishlist);
 
         if (btnSearch != null && edtSearch != null && productList != null) {
             btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -459,5 +459,103 @@ if (pager2 != null) {
             }
         }
         android.widget.Toast.makeText(getContext(), "Đã thêm vào giỏ hàng!", android.widget.Toast.LENGTH_SHORT).show();
+    }
+
+    // Hàm lấy sản phẩm từ API và hiển thị lên wishlist
+    private void fetchWishlistProducts(final android.widget.LinearLayout productList) {
+        String url = "https://fakestoreapi.com/products";
+        com.android.volley.RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(requireContext());
+        com.android.volley.toolbox.JsonArrayRequest request = new com.android.volley.toolbox.JsonArrayRequest(
+                com.android.volley.Request.Method.GET, url, null,
+                new com.android.volley.Response.Listener<org.json.JSONArray>() {
+                    @Override
+                    public void onResponse(org.json.JSONArray response) {
+                        productList.removeAllViews();
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                org.json.JSONObject obj = response.getJSONObject(i);
+                                String title = obj.getString("title");
+                                String price = obj.getString("price");
+                                String desc = obj.getString("description");
+                                String image = obj.getString("image");
+
+                                android.widget.LinearLayout row = new android.widget.LinearLayout(getContext());
+                                row.setOrientation(android.widget.LinearLayout.VERTICAL);
+                                row.setPadding(24, 24, 24, 24);
+                                row.setBackgroundColor(0xFFFFFFFF);
+                                android.widget.TextView tvTitle = new android.widget.TextView(getContext());
+                                tvTitle.setText(title);
+                                tvTitle.setTextSize(18);
+                                tvTitle.setTextColor(0xFF111111);
+                                android.widget.TextView tvPrice = new android.widget.TextView(getContext());
+                                tvPrice.setText("Giá: " + price + "$");
+                                android.widget.TextView tvDesc = new android.widget.TextView(getContext());
+                                tvDesc.setText(desc);
+                                tvDesc.setTextSize(13);
+                                tvDesc.setTextColor(0xFF666666);
+                                android.widget.ImageView img = new android.widget.ImageView(getContext());
+                                // Load ảnh từ URL (dùng Glide nếu có)
+                                try {
+                                    com.bumptech.glide.Glide.with(getContext()).load(image).into(img);
+                                } catch (Exception e) {
+                                    img.setImageResource(android.R.drawable.ic_menu_gallery);
+                                }
+                                row.addView(tvTitle);
+                                row.addView(tvPrice);
+                                row.addView(tvDesc);
+                                row.addView(img);
+
+                                // Thêm nút Thêm vào giỏ
+                                android.widget.Button btnAddToCart = new android.widget.Button(getContext());
+                                btnAddToCart.setText("Thêm vào giỏ");
+                                btnAddToCart.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        addToCart(title, desc, price, image);
+                                    }
+                                });
+                                row.addView(btnAddToCart);
+
+                                // Thêm nút Xem chi tiết
+                                android.widget.Button btnDetail = new android.widget.Button(getContext());
+                                btnDetail.setText("Xem chi tiết");
+                                btnDetail.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("tenSanPham", title);
+                                        bundle.putString("moTa", desc);
+                                        bundle.putString("gia", price);
+                                        bundle.putString("hinh", image);
+                                        android.content.SharedPreferences prefs = requireActivity().getSharedPreferences("shop_detail", android.content.Context.MODE_PRIVATE);
+                                        prefs.edit()
+                                            .putString("tenSanPham", title)
+                                            .putString("moTa", desc)
+                                            .putString("gia", price)
+                                            .putString("hinh", image)
+                                            .apply();
+                                        androidx.viewpager2.widget.ViewPager2 pager2 = requireActivity().findViewById(R.id.viewpager2);
+                                        if (pager2 != null) {
+                                            pager2.setCurrentItem(2, true); // Chuyển sang tab Shop
+                                        }
+                                    }
+                                });
+                                row.addView(btnDetail);
+
+                                productList.addView(row);
+                            } catch (org.json.JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(com.android.volley.VolleyError error) {
+                        android.widget.Toast.makeText(getContext(), "Lỗi tải sản phẩm!", android.widget.Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        queue.add(request);
     }
 }

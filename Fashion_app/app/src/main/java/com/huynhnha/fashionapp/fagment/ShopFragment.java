@@ -136,8 +136,14 @@ public class ShopFragment extends Fragment {
         if (tvMoTa != null) tvMoTa.setText(moTa);
         if (tvGia != null) tvGia.setText(gia);
         if (imgSanPham != null) {
-            int imgRes = getResources().getIdentifier(hinh, "drawable", requireContext().getPackageName());
-            if (imgRes != 0) imgSanPham.setImageResource(imgRes);
+            if (hinh != null && (hinh.startsWith("http://") || hinh.startsWith("https://"))) {
+                // Nếu là link ảnh, dùng Glide
+                com.bumptech.glide.Glide.with(requireContext()).load(hinh).into(imgSanPham);
+            } else {
+                int imgRes = getResources().getIdentifier(hinh, "drawable", requireContext().getPackageName());
+                if (imgRes != 0) imgSanPham.setImageResource(imgRes);
+                else imgSanPham.setImageResource(android.R.drawable.ic_menu_gallery);
+            }
         }
     }
 
