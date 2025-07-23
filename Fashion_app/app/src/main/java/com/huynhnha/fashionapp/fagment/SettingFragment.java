@@ -109,6 +109,24 @@ public class SettingFragment extends Fragment {
                 editor.putString("ifsc", edtIfsc.getText().toString());
                 editor.apply();
                 android.widget.Toast.makeText(getContext(), "Lưu thông tin thành công!", android.widget.Toast.LENGTH_SHORT).show();
+
+                // Tạo chuỗi thông tin để truyền sang InfoActivity
+                StringBuilder info = new StringBuilder();
+                info.append("Email: ").append(edtEmail.getText().toString()).append("\n");
+                info.append("Password: ").append(edtPassword.getText().toString()).append("\n");
+                info.append("Pincode: ").append(edtPincode.getText().toString()).append("\n");
+                info.append("Address: ").append(edtAddress.getText().toString()).append("\n");
+                info.append("City: ").append(edtCity.getText().toString()).append("\n");
+                info.append("State: ").append(edtState.getText().toString()).append("\n");
+                info.append("Country: ").append(edtCountry.getText().toString()).append("\n");
+                info.append("Bank Account: ").append(edtBankAccount.getText().toString()).append("\n");
+                info.append("Account Holder: ").append(edtHolderName.getText().toString()).append("\n");
+                info.append("IFSC: ").append(edtIfsc.getText().toString());
+
+                // Chuyển sang InfoActivity
+                android.content.Intent intent = new android.content.Intent(getActivity(), com.huynhnha.fashionapp.InfoActivity.class);
+                intent.putExtra("user_info", info.toString());
+                startActivity(intent);
             }
         });
 

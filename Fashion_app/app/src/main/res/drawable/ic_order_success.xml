@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <!-- Hình tròn -->
+    <path
+        android:fillColor="#A9D4D9"
+        android:strokeColor="#388e3c"
+        android:strokeWidth="4"
+        android:pathData="M60,4 a56,56 0 1,0 0.01,0" />
+    <!-- Dấu tick -->
+    <path
+        android:strokeColor="#388e3c"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M35,65 L55,85 L85,45" />
+</vector>

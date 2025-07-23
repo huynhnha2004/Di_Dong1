@@ -37,6 +37,12 @@
             android:name="com.huynhnha.fashionapp.MainActivity"
             android:exported="true" />
         <activity
+            android:name=".OrderSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.huynhnha.fashionapp.InfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignInActivity"
             android:exported="true">
             <intent-filter>

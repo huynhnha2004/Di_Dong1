@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fagment.HomeFragment"
-    android:background="#fff">
+    android:background="@color/background_main">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,10 +29,7 @@
                     android:layout_marginRight="10dp"
                     android:orientation="vertical"
                     android:layout_weight="1">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/groups" />
+                    
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="90dp"
@@ -68,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </LinearLayout>
-            
+
 
             <!-- Danh sách sản phẩm có thể lọc -->
             <LinearLayout
@@ -267,34 +264,34 @@
                 android:background="#F2EEEE"
                 android:orientation="vertical">
                 <ViewFlipper
-    android:layout_width="match_parent"
-    android:layout_height="190dp"
-    android:layout_marginTop="15dp"
-    android:inAnimation="@anim/slide_in_left_500"
-    android:outAnimation="@anim/slide_out_right_500"
-    android:flipInterval="3000"
-    android:autoStart="true">
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="15dp">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/game"/>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="15dp">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/online"/>
-    </androidx.cardview.widget.CardView>
-</ViewFlipper>
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:layout_marginTop="15dp"
+                    android:inAnimation="@anim/slide_in_left_500"
+                    android:outAnimation="@anim/slide_out_right_500"
+                    android:flipInterval="3000"
+                    android:autoStart="true">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="15dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/game"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="15dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/online"/>
+                    </androidx.cardview.widget.CardView>
+                </ViewFlipper>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

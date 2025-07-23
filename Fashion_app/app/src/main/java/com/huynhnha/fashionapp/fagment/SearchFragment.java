@@ -66,6 +66,16 @@ public class SearchFragment extends Fragment implements CartUpdateListener {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         cartListLayout = view.findViewById(R.id.cartListLayout);
         updateCartUI();
+        android.widget.Button btnBuy = view.findViewById(R.id.btnBuy);
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.content.Intent intent = new android.content.Intent(getActivity(), com.huynhnha.fashionapp.OrderSuccessActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Đã loại bỏ nút xóa 2 sản phẩm mặc định, vì không còn sản phẩm mặc định trong giỏ hàng.
         return view;
     }
 

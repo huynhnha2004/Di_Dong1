@@ -5,352 +5,69 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fagment.SearchFragment">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF6F6"
-    android:orientation="vertical"
-    android:padding="16dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingBottom="12dp">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/icon"/>
-        <TextView
-            android:layout_marginLeft="12dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Đơn hàng của bạn"
-            android:textColor="#222"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Địa chỉ giao hàng"
-        android:textStyle="bold"
-        android:textColor="#C53232"
-        android:textSize="16sp"
-        android:drawableLeft="@drawable/mapp"
-        android:paddingTop="4dp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#fff"
-        android:padding="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center_vertical"
-        android:elevation="2dp"
-        android:clipToPadding="false"
-        android:backgroundTint="#fff"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:background="@color/background_main"
+        android:orientation="vertical"
+        android:padding="16dp">
+
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="12dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/icon"/>
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Đơn hàng của bạn"
+                android:textColor="#222"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ giao hàng"
+            android:textStyle="bold"
+            android:textColor="#C53232"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/mapp"
+            android:paddingTop="4dp" />
+
+        <Button
+            android:id="@+id/btnBuy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mua"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:backgroundTint="#388e3c"
+            android:textColor="#fff"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:elevation="2dp" />
+
+        <TextView
+            android:id="@+id/txtCartTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sản phẩm trong giỏ hàng"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#C53232"
+            android:layout_marginTop="18dp"/>
+        <LinearLayout
+            android:id="@+id/cartListLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="216 St Paul's Rd, London N1 2LL, UK"
-                android:textStyle="bold"
-                android:textSize="14sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Liên hệ: +44-78423"
-                android:textSize="13sp"
-                android:paddingTop="2dp"/>
-        </LinearLayout>
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/cod"
-            android:layout_marginLeft="12dp"/>
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sản phẩm đã chọn"
-        android:textStyle="bold"
-        android:textColor="#C53232"
-        android:textSize="16sp"
-        android:paddingTop="8dp"/>
-
-    <LinearLayout
-        android:id="@+id/cartListLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="8dp"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:background="#fff"
-                android:padding="10dp"
-                android:elevation="2dp"
-                android:clipToPadding="false">
-    <androidx.cardview.widget.CardView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
-        android:layout_gravity="center_vertical">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/nay"/>
-    </androidx.cardview.widget.CardView>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingLeft="10dp">
-        <TextView
-            android:text="Women’s Casual Wear"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="#222"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:text="Màu: Đen, Đỏ"
-            android:textSize="13sp"
-            android:textColor="#888"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp">
-            <TextView
-                android:text="4.8"
-                android:textStyle="bold"
-                android:textColor="#C53232"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"
-                android:layout_marginLeft="2dp"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/none_star"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="4dp">
-            <TextView
-                android:text="200.000đ"
-                android:textStyle="bold"
-                android:textColor="#C53232"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:text="  30% off"
-                android:textColor="#FA1010"
-                android:textStyle="bold"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="8dp"/>
-            <TextView
-                android:text=" 300.000đ"
-                android:textColor="#949191"
-                android:textStyle="bold"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               />
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:background="@drawable/none">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
-                    <androidx.cardview.widget.CardView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
-        android:layout_gravity="center_vertical">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/boyss"/>
-    </androidx.cardview.widget.CardView>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingLeft="10dp">
-        <TextView
-            android:text="Men’s Jacket"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="#222"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:text="Màu: Xanh lá, Xám"
-            android:textSize="13sp"
-            android:textColor="#888"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="2dp"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp">
-            <TextView
-                android:text="4.8"
-                android:textStyle="bold"
-                android:textColor="#C53232"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"
-                android:layout_marginLeft="2dp"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/star"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/none_star"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="4dp">
-            <TextView
-                android:text="400.000đ"
-                android:textStyle="bold"
-                android:textColor="#C53232"
-                android:textSize="15sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:text="  30% off"
-                android:textColor="#FA1010"
-                android:textStyle="bold"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="8dp"/>
-            <TextView
-                android:text=" 700.000đ"
-                android:textColor="#949191"
-                android:textStyle="bold"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               />
-        </LinearLayout>
-    </LinearLayout>
-                </LinearLayout>
-                <ImageView
-                    android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/line"
-                    android:layout_gravity="center"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Order (1)   :"
-                        android:layout_marginTop="10dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="600.000đ"
-                        android:textStyle="bold"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="200dp"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
-    <TextView
-        android:id="@+id/txtCartTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sản phẩm trong giỏ hàng"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="#C53232"
-        android:layout_marginTop="18dp"/>
-    <LinearLayout
-        android:id="@+id/cartListLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp"/>
-</LinearLayout>
 </FrameLayout>
